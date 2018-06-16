@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="referrer" content="same-origin">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <title> </title>
+        
+        <meta name="description" content=" ">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link crossorigin="anonymous" rel="stylesheet" href="https://rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap-reboot.css">
+        <link rel="stylesheet" href="./main.css">
+        <link rel="stylesheet" href="./barchart.css">
+        
+        <script defer crossorigin="anonymous" src="https://cdn.polyfill.io/v2/polyfill.min.js?features=all"></script>
+
+        <script type="module">
+            import BarChart from './BarChart.js';
+            import makeIndicatorsByCommune from './makeIndicatorsByCommune.js'
+
+            const selectedName = localStorage.getItem('commune') || undefined;
+            
+            const chartdataP = makeIndicatorsByCommune()
+                .then(indicatorsByCommune => {
+                    console.log('indicatorsByCommune', indicatorsByCommune)
+
+                    return [...indicatorsByCommune.keys()]
+                    .map( name => {
+                        // EDEOY_M14+ACD_M14+RTE_M14+VADNF_M14+INTD_M14+NE_M14
+                        const {EDEOY_M14=0, ACD_M14=0, RTE_M14=0, VADNF_M14=0, INTD_M14=0, NE_M14=0, pop_totale} = indicatorsByCommune.get(name);
+
+                        return {
+                            name,
+                            amount: (EDEOY_M14 + ACD_M14 + RTE_M14 + VADNF_M14 + INTD_M14 + NE_M14)/pop_totale,
+                            selected: selectedName === name
+                        }
+                    })
+                    .sort(({amount: am1}, {amount: am2}) => {
+                        return am2 - am1
+                    })
+
+                })
+
+            document.addEventListener('DOMContentLoaded', e => {
+                chartdataP
+                .then(chartdata => {
+                    console.log(chartdata);
+                    const bc = BarChart(chartdata);
+                    document.body.append(bc)
+                })
+                .catch(err => console.error(err))
+            }, {once: true})
+            
+
+        </script>
+
+    </head>
+    <body>
+        <h1>Endettement</h1>
+        <p>Blablabla... Alors les ressources d'une commune, c'est x, y ainsi que t. Vous vous z'en doutiez pas, hein ? </p>
+    </body>
+</html>
