@@ -1,0 +1,24 @@
+.barchart{
+    height: 300px;
+    width: 40em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.barchart > *{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    flex: 1;
+    margin: 0 2em;
+
+    text-align: center;
+
+}
+
+.barchart .height{
+    background-color: lightsalmon;
+}
