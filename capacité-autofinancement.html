@@ -28,7 +28,10 @@
                         .map(d => ({
                             name: d["libsiret"],
                             amount: d['mntf']
-                        })) 
+                        }))
+                        .sort(({amount: am1}, {amount: am2}) => {
+                            return am2 - am1
+                        })
                 })
 
             document.addEventListener('DOMContentLoaded', e => {
