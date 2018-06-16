@@ -26,12 +26,21 @@
 }
 
 
+
 .barchart .height{
     background-color: lightsalmon;
 }
 
 .barchart .name{
     position: absolute;
+}
+
+
+.barchart .selected .height{
+    background-color: rgb(167, 87, 63);
+}
+.barchart .selected .name{
+    font-weight: bold;
 }
 
 .barchart > *:nth-child(odd) .name{

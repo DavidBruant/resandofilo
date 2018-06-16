@@ -13,10 +13,51 @@
         <link crossorigin="anonymous" rel="stylesheet" href="https://rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap-reboot.css">
         
         <script defer crossorigin="anonymous" src="https://cdn.polyfill.io/v2/polyfill.min.js?features=all"></script>
+
+        <script type=module>
+            import Bouture from 'https://rawgit.com/DavidBruant/bouture/master/bouture.js'
+
+            const dataP = fetch('./DATAFIN_DATAPOOL.json').then(resp => resp.json())
+                .then(data => {
+                    return data
+                        .filter(d => d["exges"] === "2017")
+                        .filter(d => d["libindic"] === "Annuit\u00e9 en capital de la dette")
+                        .slice(0, 10)
+                        .map(d => d["libsiret"])
+                })
+
+            document.addEventListener('DOMContentLoaded', e => {
+                const select = document.querySelector('select');
+
+                const selectedName = localStorage.getItem('commune') || undefined;
+
+                dataP.then(list => {
+                    for(const name of list){
+                        const opt = Bouture.option({value: name, selected: name === selectedName}, name).getElement()
+
+                        select.append(opt)
+                    }
+                })
+
+
+                select.addEventListener('change', e => {
+                    const name = e.target.selectedOptions[0].getAttribute('value');
+
+                    console.log('Commune selectionnée', name);
+                    
+                    if(name){
+                        localStorage.setItem('commune', name)
+                    }
+                    else{
+                        localStorage.removeItem('commune')
+                    }
+                })
+
+            }, {once: true})
+        
+        </script>
+
     </head>
-    <!-- 
-        * Sélectionner une commune
-    -->
 
     <body>
         <h1>Le budget des communes</h1>
@@ -29,6 +70,6 @@
             <li><a>Investissement</a>
         </ul>
 
-        <p>Choisir une commune <select></select></p>
+        <p>Choisir une commune : <select><option>-</option></select></p>
     </body>
 </html>

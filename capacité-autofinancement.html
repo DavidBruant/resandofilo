@@ -19,6 +19,8 @@
         <script type="module">
             import BarChart from './BarChart.js';
 
+            const selectedName = localStorage.getItem('commune') || undefined;
+
             const chartdataP = fetch('./DATAFIN_DATAPOOL.json').then(resp => resp.json())
                 .then(data => {
                     return data
@@ -27,7 +29,8 @@
                         .slice(0, 10)
                         .map(d => ({
                             name: d["libsiret"],
-                            amount: d['mntf']
+                            amount: d['mntf'],
+                            selected: selectedName === d["libsiret"]
                         }))
                         .sort(({amount: am1}, {amount: am2}) => {
                             return am2 - am1

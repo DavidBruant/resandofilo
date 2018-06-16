@@ -11,8 +11,8 @@ import Bouture from 'https://rawgit.com/DavidBruant/bouture/master/bouture.js'
 export default function BarChart(data){
     const max = Math.max(...data.map(({amount}) => amount));
 
-    return Bouture.div({class: 'barchart'}, data.map(({name, amount}) => {
-        return Bouture.div({}, [
+    return Bouture.div({class: 'barchart'}, data.map(({name, amount, selected}) => {
+        return Bouture.div({class: selected ? 'selected': undefined}, [
             Bouture.div({class: "height", style: `height: ${amount/max*100}%`}),
             Bouture.div({class: "name"}, name)
         ])
