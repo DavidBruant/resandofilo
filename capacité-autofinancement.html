@@ -19,29 +19,34 @@
         <script type="module">
             import BarChart from './BarChart.js';
 
-            const data = [
-                {   
-                    name: 'Extincteur-les-Bains',
-                    amount: 100
-                },
-                {   
-                    name: 'Assis-les-Chaises',
-                    amount: 150
-                },
-                {   
-                    name: 'Tableau-la-Douceur',
-                    amount: 87
-                }
-            ]
-        
+            const chartdataP = fetch('./DATAFIN_DATAPOOL.json').then(resp => resp.json())
+                .then(data => {
+                    return data
+                        .filter(d => d["exges"] === "2017")
+                        .filter(d => d["libindic"] === "Annuit\u00e9 en capital de la dette")
+                        .slice(0, 10)
+                        .map(d => ({
+                            name: d["libsiret"],
+                            amount: d['mntf']
+                        })) 
+                })
+
             document.addEventListener('DOMContentLoaded', e => {
-                const bc = BarChart(data);
-                document.body.append(bc)
+                chartdataP
+                .then(chartdata => {
+                    console.log(chartdata);
+                    const bc = BarChart(chartdata);
+                    document.body.append(bc)
+                })
+                .catch(err => console.error(err))
             }, {once: true})
+            
+
         </script>
 
     </head>
     <body>
         <h1>Capacité d'autofinancement</h1>
+        <p>Blablabla... Alors la capacité d'autofinancement d'une commune, c'est x, y ainsi que t. Vous vous z'en doutiez pas, hein ? </p>
     </body>
 </html>

@@ -1,6 +1,6 @@
 .barchart{
     height: 300px;
-    width: 40em;
+    
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -12,13 +12,32 @@
     flex-direction: column;
     justify-content: flex-end;
 
-    flex: 1;
-    margin: 0 2em;
+    width: 4em;
+    margin: 0 0.5em;
 
     text-align: center;
-
+    
+    position: relative;
 }
+
+.barchart > * .height,
+.barchart > * .name {
+    transform: translateX(-50%);
+}
+
 
 .barchart .height{
     background-color: lightsalmon;
+}
+
+.barchart .name{
+    position: absolute;
+}
+
+.barchart > *:nth-child(odd) .name{
+    bottom: -1.5em;
+}
+
+.barchart > *:nth-child(even) .name{
+    bottom: -3em;
 }

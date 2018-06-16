@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="referrer" content="same-origin">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <title> </title>
+        
+        <meta name="description" content=" ">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link crossorigin="anonymous" rel="stylesheet" href="https://rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap-reboot.css">
+        <link rel="stylesheet" href="./main.css">
+        <link rel="stylesheet" href="./barchart.css">
+        
+        <script defer crossorigin="anonymous" src="https://cdn.polyfill.io/v2/polyfill.min.js?features=all"></script>
+
+        <script type="module">
+            import BarChart from './BarChart.js';
+
+            const data = [
+                {   
+                    name: 'Extincteur-les-Bains',
+                    amount: 100
+                },
+                {   
+                    name: 'Assis-les-Chaises',
+                    amount: 150
+                },
+                {   
+                    name: 'Tableau-la-Douceur',
+                    amount: 87
+                }
+            ]
+        
+            document.addEventListener('DOMContentLoaded', e => {
+                const bc = BarChart(data);
+                document.body.append(bc)
+            }, {once: true})
+        </script>
+
+    </head>
+    <body>
+        <h1>Budget</h1>
+        <p>Blablabla... Alors le budget d'une commune, c'est x, y ainsi que t. Vous vous z'en doutiez pas, hein ? </p>
+    </body>
+</html>
