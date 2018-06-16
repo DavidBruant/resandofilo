@@ -28,11 +28,11 @@
 
                     return [...indicatorsByCommune.keys()]
                     .map( name => {
-                        const {RFP_M14=0, REX_M14=0, RIN_M14=0, FREV_M14=0, PIMMO_14=0, RF_M14=0, OPAM_M14=0, APCE_M14=0, CCG_M14=0, CP_M14=0, SUBF_M14=0, ACG_M14=0, SUBE_M14=0, pop_totale} = indicatorsByCommune.get(name);
+                        const {RFP_M14=0, REX_M14=0, RIN_M14=0, FREV_M14=0, PIMMO_14=0, pop_totale} = indicatorsByCommune.get(name);
 
                         return {
                             name,
-                            amount: (RFP_M14 + REX_M14 + RIN_M14 + FREV_M14 + PIMMO_14 + RF_M14 + OPAM_M14 + APCE_M14 - CCG_M14 - CP_M14 - SUBF_M14 - ACG_M14 - SUBE_M14)/pop_totale,
+                            amount: (RFP_M14 + REX_M14 + RIN_M14 + FREV_M14 + PIMMO_14)/pop_totale,
                             selected: selectedName === name
                         }
                     })
@@ -57,7 +57,7 @@
 
     </head>
     <body>
-        <h1>Capacité d'autofinancement</h1>
-        <p>Blablabla... Alors la capacité d'autofinancement d'une commune, c'est x, y ainsi que t. Vous vous z'en doutiez pas, hein ? </p>
+        <h1>Ressources</h1>
+        <p>Blablabla... Alors les ressources d'une commune, c'est x, y ainsi que t. Vous vous z'en doutiez pas, hein ? </p>
     </body>
 </html>
